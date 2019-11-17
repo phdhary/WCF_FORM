@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace WCF_FORM_C
 {
-    public partial class addedit : Form
+    public partial class addedit : MetroFramework.Forms.MetroForm
     {
         int status = 0;
         int id = 0;
@@ -22,9 +22,11 @@ namespace WCF_FORM_C
             status = st;
             id = id_inp;
             button2.Visible = false;
+            this.Text = "Add";
 
             if(status ==2)
             {
+                this.Text = "Edit";
                 getData(id.ToString());
                 txt_hrg.Enabled = false;
                 txt_psn.Enabled = false;
@@ -66,31 +68,39 @@ namespace WCF_FORM_C
         private void button1_Click(object sender, EventArgs e)
         {
             DataPesanan input = new DataPesanan();
-            try
+            if (txt_psn.Text != "" && txt_hrg.Text !="")
             {
-                input.pesanan = txt_psn.Text;
-                input.harga = txt_hrg.Text;
-                if (status == 1)
+                try
                 {
-                    addData(input);
-                    Program.Form.getDataAll();
-                    this.Close();
-                }
-                else if(status == 2)
-                {
-                    input.id = id;
-                    updateData(input);
-                    Program.Form.getDataAll();
-                    this.Close();
-                }
-                else
-                {
+                    input.pesanan = txt_psn.Text;
+                    input.harga = txt_hrg.Text;
+                    if (status == 1)
+                    {
+                        addData(input);
+                        Program.Form.getDataAll();
+                        this.Close();
+                    }
+                    else if(status == 2)
+                    {
+                        input.id = id;
+                        updateData(input);
+                        Program.Form.getDataAll();
+                        this.Close();
+                    }
+                    else
+                    {
 
+                    }
                 }
+                catch(Exception ee)
+                {
+                    MessageBox.Show(ee.Message);
+                }
+
             }
-            catch(Exception ee)
+            else
             {
-                MessageBox.Show(ee.Message);
+                MessageBox.Show("Silahkan isi semua data terlebih dahulu");
             }
             
         }

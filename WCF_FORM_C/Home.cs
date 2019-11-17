@@ -12,13 +12,16 @@ using Newtonsoft.Json;
 
 namespace WCF_FORM_C
 {
-    public partial class Home : Form
+    public partial class Home : MetroFramework.Forms.MetroForm
     {
         
         public Home()
         {
             InitializeComponent();
             getDataAll();
+            this.StyleManager = metroStyleManager1;
+            this.dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
         }
 
         private void Home_Load(object sender, EventArgs e)
@@ -32,6 +35,7 @@ namespace WCF_FORM_C
             //deserialization : ubah dari string json ke objek
             pesanan = JsonConvert.DeserializeObject<List<DataPesanan>>(result);
             dgv.DataSource = pesanan;
+
         }
         void getData(string inp)
         {
